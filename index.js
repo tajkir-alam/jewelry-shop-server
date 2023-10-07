@@ -53,7 +53,7 @@ async function run() {
             const getEamil = req.query.email;
             const sortJewelry = req.query.sortjewelry;
 
-            let limit = 1000000000;
+            let limit = 100000000;
             let query = {};
             let sortIs = {};
 
