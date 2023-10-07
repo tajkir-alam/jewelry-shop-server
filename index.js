@@ -82,7 +82,13 @@ async function run() {
             res.send(result);
         })
 
-        app.get('/alltoys/:id', async (req, res) => {
+        app.post('/all-jewelry', async (req, res) => {
+            const allJewelry = req.body;
+            const result = await ShopByCategory.insertOne(allJewelry);
+            res.send(result);
+        })
+
+        app.get('/all-jewelry/:id', async (req, res) => {
             const id = req.params.id;
             const query = { _id: new ObjectId(id) };
             const result = await ShopByCategory.findOne(query);
