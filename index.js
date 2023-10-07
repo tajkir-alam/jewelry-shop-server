@@ -95,7 +95,23 @@ async function run() {
             res.send(result)
         })
 
-        app.delete('/alltoys/:id', async (req, res) => {
+        app.put('/all-jewelry/:id', async (req, res) => {
+            const id = req.params.id;
+            const updatedJewelry = req.body;
+            const filter = { _id: new ObjectId(id) };
+            const options = { upsert: true };
+            const jewelry = {
+                $set: {
+                    price: updatedJewelry.price,
+                    quantity: updatedJewelry.quantity,
+                    details: updatedJewelry.details,
+                },
+            };
+            const result = await ShopByCategory.updateOne(filter, jewelry, options);
+            res.send(result);
+        })
+
+        app.delete('/all-jewelry/:id', async (req, res) => {
             const id = req.params.id;
             const filter = { _id: new ObjectId(id) }
             const result = await ShopByCategory.deleteOne(filter);
