@@ -49,9 +49,9 @@ async function run() {
 
             const limitIs = parseInt(req.query.limit)
             const categoryName = req.query.categoryname;
-            const toyName = req.query.searchtoy;
+            const jewelryName = req.query.searchjewelry;
             const getEamil = req.query.email;
-            const sortToys = req.query.sorttoys;
+            const sortJewelry = req.query.sortjewelry;
 
             let limit = 1000000000;
             let query = {};
@@ -65,21 +65,28 @@ async function run() {
                 query = { subCategory: categoryName };
             }
 
-            if (toyName) {
-                query = { name: { $regex: toyName, $options: 'i' } };
+            if (jewelryName) {
+                query = { name: { $regex: jewelryName, $options: 'i' } };
             }
 
             if (getEamil) {
                 query = { sellerEmail: getEamil }
             }
 
-            if (sortToys) {
-                sortIs = { price: sortToys }
+            if (sortJewelry) {
+                sortIs = { price: sortJewelry }
             }
 
             const cursor = ShopByCategory.find(query).limit(limit).sort(sortIs);
             const result = await cursor.toArray();
             res.send(result);
+        })
+
+        app.get('/alltoys/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: new ObjectId(id) };
+            const result = await ShopByCategory.findOne(query);
+            res.send(result)
         })
     }
     finally {
