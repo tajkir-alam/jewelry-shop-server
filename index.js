@@ -45,7 +45,42 @@ async function run() {
         // const indexOptions = { name: "searchingToys" };
         // const indexCreating = await ShopByCategory.createIndex(indexKeys, indexOptions);
 
-       
+        app.get('/all-jewelry', async (req, res) => {
+
+            const limitIs = parseInt(req.query.limit)
+            const categoryName = req.query.categoryname;
+            const toyName = req.query.searchtoy;
+            const getEamil = req.query.email;
+            const sortToys = req.query.sorttoys;
+
+            let limit = 1000000000;
+            let query = {};
+            let sortIs = {};
+
+            if (limitIs) {
+                limit = limitIs;
+            }
+
+            if (categoryName) {
+                query = { subCategory: categoryName };
+            }
+
+            if (toyName) {
+                query = { name: { $regex: toyName, $options: 'i' } };
+            }
+
+            if (getEamil) {
+                query = { sellerEmail: getEamil }
+            }
+
+            if (sortToys) {
+                sortIs = { price: sortToys }
+            }
+
+            const cursor = ShopByCategory.find(query).limit(limit).sort(sortIs);
+            const result = await cursor.toArray();
+            res.send(result);
+        })
     }
     finally {
         // Ensures that the client will close when you finish/error
