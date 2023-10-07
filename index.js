@@ -92,8 +92,8 @@ run().catch(console.dir);
 
 
 app.get('/', (req, res) => {
-    const all_Jewelry = 'https://trov-titans-server-data.vercel.app/alltoys'
-    const single_Jewelry = 'https://trov-titans-server-data.vercel.app/alltoys/64684820d42658e60f48d02c'
+    const all_Jewelry = 'https://jewelry-shop-client-side.vercel.app/all-jewelry'
+    const single_Jewelry = 'https://jewelry-shop-client-side.vercel.app/all-jewelry/65217506933bad4281ec0001'
     const text = { all_Jewelry, single_Jewelry }
     res.send({ text })
 })
