@@ -119,7 +119,13 @@ async function run() {
             res.send(result);
         })
 
-
+        // Cart Api
+        app.get('/cart', async (req, res) => {
+            const getEamil = req.query.email;
+            const query = { userEmail: getEamil };
+            const result = await cartItems.find(query).toArray();
+            res.send(result)
+        })
         app.post('/cart', async (req, res) => {
             const cartItem = req.body;
             const result = await cartItems.insertOne(cartItem);
