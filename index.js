@@ -43,7 +43,7 @@ async function run() {
 
         // ------------------->>>>>> Index was did for 1 time then I turn it off.
         // const indexKeys = { name: 1 };
-        // const indexOptions = { name: "searchingToys" };
+        // const indexOptions = { name: "searchingJewelries" };
         // const indexCreating = await ShopByCategory.createIndex(indexKeys, indexOptions);
 
         app.get('/all-jewelry', async (req, res) => {
