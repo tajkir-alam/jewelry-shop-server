@@ -38,6 +38,7 @@ async function run() {
         // await client.connect();
 
         const ShopByCategory = client.db("TheJewelryArmy").collection("ShopByCategory");
+        const cartItems = client.db("TheJewelryArmy").collection("cartItems");
 
 
         // ------------------->>>>>> Index was did for 1 time then I turn it off.
@@ -115,6 +116,13 @@ async function run() {
             const id = req.params.id;
             const filter = { _id: new ObjectId(id) }
             const result = await ShopByCategory.deleteOne(filter);
+            res.send(result);
+        })
+
+
+        app.post('/cart', async (req, res) => {
+            const cartItem = req.body;
+            const result = await cartItems.insertOne(cartItem);
             res.send(result);
         })
     }
